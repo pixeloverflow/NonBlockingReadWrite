@@ -28,6 +28,7 @@ public class Writer {
         channel.write(buff);
         buff.force();
         channel.close();
+        buff.rewind();
     }
 
     public int getExpectedResult(){
