@@ -1,26 +1,23 @@
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 
 public class Writer {
     private MappedByteBuffer buff;
-    private FileOutputStream out;
     private FileChannel channel;
     private int[] data;
     private int expectedResult = 0;
+    private Path path;
 
-    public Writer(File writable, MappedByteBuffer buffer, int[] toWrite) throws Exception {
+    public Writer(Path _path, MappedByteBuffer buffer, int[] toWrite) throws Exception {
+        path = _path;
+        channel = FileChannel.open(path, StandardOpenOption.WRITE);
         buff = buffer;
-        out = new FileOutputStream(writable);
-        channel = out.getChannel();
         data = toWrite;
     }
 
     public void writeToFile() throws Exception {
-        DataOutputStream dos = new DataOutputStream(out);
-
         for (int i = 0 ; i <= data.length-1 ;++i){
             buff.putInt(data[i]);
             expectedResult += data[i];

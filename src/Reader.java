@@ -1,20 +1,18 @@
-import java.io.File;
-import java.io.FileInputStream;
 import java.nio.IntBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 
 public class Reader {
     private MappedByteBuffer buff;
-    private FileInputStream in;
     private FileChannel channel;
     private IntBuffer humanReadableFormat;
     private int operationResult = 0;
 
-    public Reader(File readable, MappedByteBuffer buffer) throws Exception {
+    public Reader(Path _path, MappedByteBuffer buffer) throws Exception {
         buff = buffer;
-        in = new FileInputStream(readable);
-        channel = in.getChannel();
+        channel = FileChannel.open(_path, StandardOpenOption.READ);
     }
 
     public void readFromFile() throws Exception {
