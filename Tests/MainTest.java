@@ -17,6 +17,7 @@ public class MainTest {
         prep();
         wr.writeToFile();
         rd.readFromFile();
+        System.out.println(wr.getExpectedResult() +" "+ rd.result());
         Assertions.assertEquals(wr.getExpectedResult(), rd.result());
     }
 }
