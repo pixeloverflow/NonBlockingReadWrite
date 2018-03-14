@@ -8,7 +8,7 @@ public class MainTest {
 
     public void prep() throws Exception {
         int[] data = { 9, 2, 1, 12, 6};
-        supervisor = new Supervisor(Constants.fileExample());
+        supervisor = new Supervisor(Constants.fileExample(), data.length*4);
         wr = new Writer(supervisor.path(), supervisor.buffer(), data);
         rd = new Reader(supervisor.path(), supervisor.buffer());
     }
@@ -17,7 +17,7 @@ public class MainTest {
         prep();
         wr.writeToFile();
         rd.readFromFile();
-        System.out.println(wr.getExpectedResult() +" "+ rd.result());
+        System.out.println(wr.getExpectedResult() + " " + rd.result());
         Assertions.assertEquals(wr.getExpectedResult(), rd.result());
     }
 }

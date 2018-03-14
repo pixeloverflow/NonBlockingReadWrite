@@ -1,3 +1,4 @@
+import java.nio.IntBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.file.Path;
@@ -21,6 +22,10 @@ public class Writer {
         for (int i = 0 ; i <= data.length-1 ;++i){
             buff.putInt(data[i]);
             expectedResult += data[i];
+        }
+        IntBuffer bufff = buff.asIntBuffer();
+        while (bufff.hasRemaining()){
+            System.out.println(bufff.get());
         }
         channel.write(buff);
         buff.force();
